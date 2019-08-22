@@ -17,3 +17,8 @@
 .show {
   width: 200px;
 }
+
+.right {
+  left: 0;
+  right: auto;
+}
