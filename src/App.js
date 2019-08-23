@@ -1,7 +1,8 @@
 import React, { useState, useEffect, createRef } from 'react';
 import SideBar from './components/SideBar';
-import './App.css';
-import { truncate } from 'fs';
+import BookStack from './components/BookStack';
+import data from './data';
+import './styles/App.css';
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -9,9 +10,6 @@ function App() {
   
   var viewportHeight;
 
-  const updateSideBar = (newValue) => {
-    setShowSideBar(newValue);
-  };
   const handleScroll = () => {
     const bookStacksScrollPos = ref.current.getBoundingClientRect().top;
     const viewportCenter = viewportHeight / 2;
@@ -46,7 +44,9 @@ function App() {
       <div className="App-body">
         <SideBar show={showSideBar} />
         <SideBar right show={showSideBar} />
-        <img ref={ref} src="./book_stacks.png" alt="a stack of books" className="placeholder-img"/>
+        <div ref={ref}>
+          <BookStack data={data} />
+        </div>
       </div>
       <footer className="App-footer">Just another line of text.</footer>
     </div>
