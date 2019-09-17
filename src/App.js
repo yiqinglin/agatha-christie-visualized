@@ -44,7 +44,7 @@ function App() {
       <div className="App-body">
         <SideBar show={showSideBar} />
         <SideBar right show={showSideBar} />
-        <div ref={ref}>
+        <div className="App-stack-container" ref={ref}>
           <BookStack data={data} />
         </div>
       </div>
