@@ -1,14 +1,25 @@
 import React from 'react';
 import Book from './Book';
-import '../styles/BookStack.css';
+import injectSheet from 'react-jss';
 import { calcColorFromTitle } from '../utils/calcColorFromTitle';
 
-const BookStack = ({ data }: props) => (
-  <div className='bookstack' style={{ height: `${data.length*100}px`}}>
+const BookStack = ({ data, classes: c }: props) => (
+  <div className={c.bookstack} style={{ height: `${data.length*100}px`}}>
     {data.map((book, i) => 
-      <Book key={i} order={i} title={book.title} bookColor={calcColorFromTitle(book.title)} />
+      <Book
+        key={i}
+        order={i}
+        title={book.title}
+        bookColor={calcColorFromTitle(book.title)}  
+      />
     )}
   </div>
 );
 
-export default BookStack;
+const styles = {
+  bookstack: {
+    position: 'relative'
+  }
+};
+
+export default injectSheet(styles)(BookStack);

@@ -1,17 +1,81 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
-import '../styles/Book.css';
+import cx from 'classnames';
+import injectSheet from 'react-jss';
 
-const Book = ({ title, bookColor, order }: props) => (
-  <div className={`book book-${order}`} style={{top: `${order*100}px`}}> 
-    <div className='book-spine' style={{backgroundColor: bookColor}}>{title}</div>
-    <div className='book-backbone' style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
-    <div className='book-pages'>
-      <div className='book-cover book-cover--top' style={{backgroundColor: tinycolor(bookColor).lighten(10)}}/>
-      <div className='book-block'/>
-      <div className='book-cover' style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+const Book = ({ title, bookColor, order, classes : c }: props) => {
+  const randomOffset =  Math.floor(Math.random() * 100);
+
+  console.log(randomOffset);
+  return (
+    <div
+      className={c.book}
+      style={{ left: `${randomOffset}px` }}
+      onMouseEnter={() => console.log('mouse in')}
+      onMouseLeave={() => console.log('mouse out')}> 
+      <div className={c.spine} style={{backgroundColor: bookColor}}>{title}</div>
+      <div className={c.backbone} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+      <div className={c.pages}>
+        <div className={cx(c.cover, c.frontCover)} style={{backgroundColor: tinycolor(bookColor).lighten(10)}}/>
+        <div className={c.bookblock}/>
+        <div className={c.cover} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
-export default Book;
+const styles = {
+  book: {
+    width: '400px',
+    height: '100px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    cursor: 'pointer',
+    transition: 'left 0.25s ease-in-out',
+    position: 'absolute',
+    left: '0',
+    right: '0',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    top: props => `${props.order*100}px`
+  },
+  spine: {
+    width: '60%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  backbone: {
+    width: '3%',
+    height: '100%',
+    backgroundColor: 'hsl(17, 18%, 58%)'
+  },
+  pages: {
+    width: '37%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch'
+  },
+  cover: {
+    width: '100%',
+    height: '10%',
+    backgroundColor: 'hsl(17, 18%, 58%)'
+  },
+  frontCover: {
+    boxShadow: '0px 10px 0px 0px rgba(0, 0, 0, 0.11)',
+    zIndex: '2'
+  },
+  bookblock: {
+    width: '92%',
+    height: '80%',
+    background: 'repeating-linear-gradient(to bottom, hsl(22, 11%, 94%), hsl(22, 11%, 94%) 10px, hsl(22, 11%, 90%) 10px, hsl(22, 11%, 90%) 12px)'
+  }
+};
+
+export default injectSheet(styles)(Book);
