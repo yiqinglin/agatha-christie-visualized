@@ -12,12 +12,12 @@ const data = [
   {
     title: "The Murder of Roger Ackroyd",
     page_count: 256,
-    publish_date: 1926
+    publish_date: 1946
   },
   {
     title: "The Big Four",
     page_count: 304,
-    publish_date: 1927
+    publish_date: 1947
   },
   {
     title: "The Mystery of the Blue Train",
@@ -37,12 +37,12 @@ const data = [
   {
     title: "Endless Night",
     page_count: 224,
-    publish_date: 1938
+    publish_date: 1952
   },
   {
     title: "The Mirror Crack'd from Side to Side",
     page_count: 224,
-    publish_date: 1938
+    publish_date: 1967
   }
 ];
 

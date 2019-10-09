@@ -14,8 +14,8 @@ function Filters({classes: c}: props) {
             <div className={c.container}>
               <h3>Publish Year Range</h3>
                 <Slider
-                  min={range.publishDate.min}
-                  max={range.publishDate.max}
+                  min={range.publishDate[0]}
+                  max={range.publishDate[1]}
                   value={value.filters.publishDateRange}
                   onChange={(event, newValue) => value.handlePDRangeChange(newValue)}
                   valueLabelDisplay="on"

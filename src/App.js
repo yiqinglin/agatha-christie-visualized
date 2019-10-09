@@ -6,14 +6,12 @@ import data from './data';
 import injectSheet from 'react-jss';
 import { FilterValueContext } from './filter-value-context';
 import { FilterRangeContext } from './filter-range-context';
+import { calcMinMax } from './utils/calcMinMax';
 
-// TODO: Calculate based on data.
 const range = {
-  publishDate: {
-    min: 1928,
-    max: 1968
-  }
+  publishDate: calcMinMax(data, 'publish_date')
 };
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class App extends React.Component {
     this.state = {
       viewportHeight: 0,
       showSideBar: false,
-      publishDateRange: [range.publishDate.min, range.publishDate.max]
+      publishDateRange: range.publishDate
     }
   }
 
@@ -55,6 +53,13 @@ class App extends React.Component {
     window.removeEventListener('resize', this.updateViewportHeight);
   }
 
+  filterData = (data) => {
+    const [ PDMin, PDMax ] = this.state.publishDateRange;
+    return data.filter((book) => {
+      return book.publish_date >= PDMin && book.publish_date <= PDMax;
+    });
+  }
+
   render() {
     const { classes: c } = this.props;
 
@@ -75,7 +80,7 @@ class App extends React.Component {
                 <Filters/>
               </SideBar>
               <div className={c.stackContainer} ref={this.ref}>
-                <BookStack data={data} />
+                <BookStack data={this.filterData(data)} />
               </div>
             </div>
             <footer className={c.footer}>Just another line of text.</footer>
