@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 import injectSheet from 'react-jss';
 
-function SideBar({ show, right, classes: c }: props) {
+function SideBar({ show, right, classes: c, children }: props) {
   return (
     <div className={cx(c.sidebar, show && c.show, right && c.right)}>
-      <div>This is a Side Bar</div>
+      {children}
     </div>
   );
 }
@@ -24,7 +24,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'width 0.25s ease-in-out',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    zIndex: '5'
   },
   show: {
     width: '200px'

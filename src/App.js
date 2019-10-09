@@ -1,56 +1,90 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { createRef } from 'react';
 import SideBar from './components/SideBar';
 import BookStack from './components/BookStack';
+import Filters from './components/Filters';
 import data from './data';
 import injectSheet from 'react-jss';
+import { FilterValueContext } from './filter-value-context';
+import { FilterRangeContext } from './filter-range-context';
 
-function App({ classes: c }: props) {
-  const [showSideBar, setShowSideBar] = useState(false);
-  const ref = createRef();
-  
-  var viewportHeight;
+// TODO: Calculate based on data.
+const range = {
+  publishDate: {
+    min: 1928,
+    max: 1968
+  }
+};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ref = createRef();
+    this.state = {
+      viewportHeight: 0,
+      showSideBar: false,
+      publishDateRange: [range.publishDate.min, range.publishDate.max]
+    }
+  }
 
-  const handleScroll = () => {
-    const bookStacksScrollPos = ref.current.getBoundingClientRect().top;
-    const viewportCenter = viewportHeight / 2;
+  handlePDRangeChange = (newRange) => {
+    this.setState({ publishDateRange: newRange});
+  }
+
+  handleScroll = () => {
+    const bookStacksScrollPos = this.ref.current.getBoundingClientRect().top;
+    const viewportCenter = this.state.viewportHeight / 2;
 
     if (bookStacksScrollPos <= viewportCenter) {
-      setShowSideBar(true)
+      this.setState({ showSideBar: true })
     } else {
-      setShowSideBar(false)
+      this.setState({ showSideBar: false })      
     }
-  };
-  const updateViewportHeight = () => {
-    viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', updateViewportHeight);
-    updateViewportHeight();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateViewportHeight);
+  updateViewportHeight = () => {
+    this.setState({ viewportHeight: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)});
   }
-  })
 
-  return (
-    <div className={c.container}>
-      <header className={c.header}>
-        <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
-        <p className={c.projectDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </header>
-      <div className={c.appBody}>
-        <SideBar show={showSideBar} />
-        <SideBar right show={showSideBar} />
-        <div className={c.stackContainer} ref={ref}>
-          <BookStack data={data} />
-        </div>
-      </div>
-      <footer className={c.footer}>Just another line of text.</footer>
-    </div>
-  );
+  componentDidMount(){
+    this.updateViewportHeight();
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.updateViewportHeight);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.updateViewportHeight);
+  }
+
+  render() {
+    const { classes: c } = this.props;
+
+    return (
+      <FilterRangeContext.Provider value={range}>
+        <FilterValueContext.Provider value={{
+          filters: { publishDateRange: this.state.publishDateRange},
+          handlePDRangeChange: this.handlePDRangeChange
+        }}>
+          <div className={c.container}>
+            <header className={c.header}>
+              <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
+              <p className={c.projectDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </header>
+            <div className={c.appBody}>
+              <SideBar show={this.state.showSideBar}/>
+              <SideBar right show={this.state.showSideBar}>
+                <Filters/>
+              </SideBar>
+              <div className={c.stackContainer} ref={this.ref}>
+                <BookStack data={data} />
+              </div>
+            </div>
+            <footer className={c.footer}>Just another line of text.</footer>
+          </div>
+        </FilterValueContext.Provider>
+      </FilterRangeContext.Provider>
+    );
+
+  }
 }
 
 const styles = {

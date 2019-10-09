@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tinycolor from 'tinycolor2';
 import cx from 'classnames';
 import injectSheet from 'react-jss';
 
 const Book = ({ title, bookColor, order, classes : c }: props) => {
-  const randomOffset =  Math.floor(Math.random() * 100);
+  const [ randomOffset ] = useState(Math.floor(Math.random() * 100));
 
-  console.log(randomOffset);
   return (
     <div
       className={c.book}
-      style={{ left: `${randomOffset}px` }}
-      onMouseEnter={() => console.log('mouse in')}
-      onMouseLeave={() => console.log('mouse out')}> 
+      style={{ left: `${randomOffset}px` }}> 
       <div className={c.spine} style={{backgroundColor: bookColor}}>{title}</div>
       <div className={c.backbone} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
       <div className={c.pages}>
@@ -33,13 +30,16 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     cursor: 'pointer',
-    transition: 'left 0.25s ease-in-out',
+    transition: 'transform 0.25s ease-in-out',
     position: 'absolute',
     left: '0',
     right: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
-    top: props => `${props.order*100}px`
+    top: props => `${props.order*100}px`,
+    '&:hover': {
+      transform: 'translateX(50px)'
+    }
   },
   spine: {
     width: '60%',
@@ -47,7 +47,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: '3px 0 0 3px'
   },
   backbone: {
     width: '3%',
