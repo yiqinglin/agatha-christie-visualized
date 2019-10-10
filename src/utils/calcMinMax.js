@@ -1,14 +1,23 @@
-export const calcMinMax = (objArray, key) => {
-  let min = Number.POSITIVE_INFINITY;
-  let max = Number.NEGATIVE_INFINITY;
-  let tmp;
+/**
+ *  Given an array of objects and an array of keys, returns the min/max value
+ *  calculated from of all the property values in the objects for each key.
+ *  @param {[Object]} objArray An array of objects.
+ *  @param {[string]} keyArray An array of strings cooresponding to property keys contained in objArray.
+ *  @return {Object} { key: [min, max] }
+ * */ 
+export const calcMinMax = (objArray, keyArray) => {
+  let res = {};
 
+  for (const key of keyArray) {
+    res[key] = [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
+  }
   for (const obj of objArray) {
-    tmp = obj[key];
-    if (tmp < min) min = tmp;
-    if (tmp > max) max = tmp;
+    for (const key of keyArray) {
+      const value = obj[key];
+      if (value < res[key][0]) res[key][0] = value;
+      if (value > res[key][1]) res[key][1] = value;
+    }
   }
 
-  console.log(min, max);
-  return [min, max];
+  return res;
 }

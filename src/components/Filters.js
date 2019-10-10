@@ -22,7 +22,18 @@ function Filters({classes: c}: props) {
                   aria-labelledby="range-slider"
                   getAriaValueText={() => `${value.filters.publishDateRange}}`}
                 />
+              <h3>Page Count</h3>
+              <Slider
+                  min={range.pageCount[0]}
+                  max={range.pageCount[1]}
+                  value={value.filters.pageCountRange}
+                  onChange={(event, newValue) => value.handlePageCountRangeChange(newValue)}
+                  valueLabelDisplay="on"
+                  aria-labelledby="range-slider"
+                  getAriaValueText={() => `${value.filters.pageCountRange}}`}
+                />
               <h3>Death Count</h3>
+              
               <h3>Filter By</h3>
               <h4>Characters</h4>
               <h4>Murder Methods</h4>

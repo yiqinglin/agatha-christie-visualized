@@ -8,9 +8,7 @@ import { FilterValueContext } from './filter-value-context';
 import { FilterRangeContext } from './filter-range-context';
 import { calcMinMax } from './utils/calcMinMax';
 
-const range = {
-  publishDate: calcMinMax(data, 'publish_date')
-};
+const range =  calcMinMax(data, ['publishDate', 'pageCount']);
 
 class App extends React.Component {
   constructor(props) {
@@ -19,12 +17,17 @@ class App extends React.Component {
     this.state = {
       viewportHeight: 0,
       showSideBar: false,
-      publishDateRange: range.publishDate
+      publishDateRange: range.publishDate,
+      pageCountRange: range.pageCount
     }
   }
 
   handlePDRangeChange = (newRange) => {
     this.setState({ publishDateRange: newRange});
+  }
+
+  handlePageCountRangeChange = (newRange) => {
+    this.setState({ pageCountRange: newRange });
   }
 
   handleScroll = () => {
@@ -55,8 +58,10 @@ class App extends React.Component {
 
   filterData = (data) => {
     const [ PDMin, PDMax ] = this.state.publishDateRange;
+    const [ PCMin, PCMax ] = this.state.pageCountRange;
     return data.filter((book) => {
-      return book.publish_date >= PDMin && book.publish_date <= PDMax;
+      return book.publishDate >= PDMin && book.publishDate <= PDMax
+        && book.pageCount >= PCMin && book.pageCount <= PCMax;
     });
   }
 
@@ -66,8 +71,12 @@ class App extends React.Component {
     return (
       <FilterRangeContext.Provider value={range}>
         <FilterValueContext.Provider value={{
-          filters: { publishDateRange: this.state.publishDateRange},
-          handlePDRangeChange: this.handlePDRangeChange
+          filters: {
+            publishDateRange: this.state.publishDateRange,
+            pageCountRange: this.state.pageCountRange
+          },
+          handlePDRangeChange: this.handlePDRangeChange,
+          handlePageCountRangeChange: this.handlePageCountRangeChange
         }}>
           <div className={c.container}>
             <header className={c.header}>

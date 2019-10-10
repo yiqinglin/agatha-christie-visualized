@@ -1,48 +1,57 @@
 const data = [
   {
     title: "The Mysterious Affair at Styles",
-    page_count: 300,
-    publish_date: 1920
+    pageCount: 300,
+    publishDate: 1920,
+    deathCount: 4
   },
   {
     title: "The Murder on the Links",
-    page_count: 272,
-    publish_date: 1923
+    pageCount: 272,
+    publishDate: 1923,
+    deathCount: 1
   },
   {
     title: "The Murder of Roger Ackroyd",
-    page_count: 256,
-    publish_date: 1946
+    pageCount: 256,
+    publishDate: 1946,
+    deathCount: 1
   },
   {
     title: "The Big Four",
-    page_count: 304,
-    publish_date: 1947
+    pageCount: 304,
+    publishDate: 1947,
+    deathCount: 4
   },
   {
     title: "The Mystery of the Blue Train",
-    page_count: 296,
-    publish_date: 1928
+    pageCount: 296,
+    publishDate: 1928,
+    deathCount: 6
   },
   {
     title: "Peril at End House",
-    page_count: 270,
-    publish_date: 1933
+    pageCount: 270,
+    publishDate: 1933,
+    deathCount: 2
   },
   {
     title: "Lord Edgware Dies",
-    page_count: 256,
-    publish_date: 1935
+    pageCount: 256,
+    publishDate: 1935,
+    deathCount: 1
   },
   {
     title: "Endless Night",
-    page_count: 224,
-    publish_date: 1952
+    pageCount: 224,
+    publishDate: 1952,
+    deathCount: 4
   },
   {
     title: "The Mirror Crack'd from Side to Side",
-    page_count: 224,
-    publish_date: 1967
+    pageCount: 501,
+    publishDate: 1967,
+    deathCount: 2
   }
 ];
 
