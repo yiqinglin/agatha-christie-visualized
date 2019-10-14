@@ -33,6 +33,15 @@ function Filters({classes: c}: props) {
                   getAriaValueText={() => `${value.filters.pageCountRange}}`}
                 />
               <h3>Death Count</h3>
+              <Slider
+                  min={range.deathCount[0]}
+                  max={range.deathCount[1]}
+                  value={value.filters.deathCountRange}
+                  onChange={(event, newValue) => value.handleDeathCountRangeChange(newValue)}
+                  valueLabelDisplay="on"
+                  aria-labelledby="range-slider"
+                  getAriaValueText={() => `${value.filters.deathCountRange}}`}
+                />
               
               <h3>Filter By</h3>
               <h4>Characters</h4>

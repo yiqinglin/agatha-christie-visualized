@@ -8,7 +8,7 @@ import { FilterValueContext } from './filter-value-context';
 import { FilterRangeContext } from './filter-range-context';
 import { calcMinMax } from './utils/calcMinMax';
 
-const range =  calcMinMax(data, ['publishDate', 'pageCount']);
+const range = calcMinMax(data, ['publishDate', 'pageCount', 'deathCount']);
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class App extends React.Component {
       viewportHeight: 0,
       showSideBar: false,
       publishDateRange: range.publishDate,
-      pageCountRange: range.pageCount
+      pageCountRange: range.pageCount,
+      deathCountRange: range.deathCount
     }
   }
 
@@ -28,6 +29,10 @@ class App extends React.Component {
 
   handlePageCountRangeChange = (newRange) => {
     this.setState({ pageCountRange: newRange });
+  }
+
+  handleDeathCountRangeChange = (newRange) => {
+    this.setState({ deathCountRange: newRange });
   }
 
   handleScroll = () => {
@@ -59,9 +64,11 @@ class App extends React.Component {
   filterData = (data) => {
     const [ PDMin, PDMax ] = this.state.publishDateRange;
     const [ PCMin, PCMax ] = this.state.pageCountRange;
+    const [ DCMin, DCMax ] = this.state.deathCountRange;
     return data.filter((book) => {
       return book.publishDate >= PDMin && book.publishDate <= PDMax
-        && book.pageCount >= PCMin && book.pageCount <= PCMax;
+        && book.pageCount >= PCMin && book.pageCount <= PCMax
+        && book.deathCount >= DCMin && book.deathCount <= DCMax;
     });
   }
 
@@ -73,10 +80,12 @@ class App extends React.Component {
         <FilterValueContext.Provider value={{
           filters: {
             publishDateRange: this.state.publishDateRange,
-            pageCountRange: this.state.pageCountRange
+            pageCountRange: this.state.pageCountRange,
+            deathCountRange: this.state.deathCountRange
           },
           handlePDRangeChange: this.handlePDRangeChange,
-          handlePageCountRangeChange: this.handlePageCountRangeChange
+          handlePageCountRangeChange: this.handlePageCountRangeChange,
+          handleDeathCountRangeChange: this.handleDeathCountRangeChange
         }}>
           <div className={c.container}>
             <header className={c.header}>
