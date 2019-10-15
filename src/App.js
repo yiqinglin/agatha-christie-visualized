@@ -19,7 +19,8 @@ class App extends React.Component {
       showSideBar: false,
       publishDateRange: range.publishDate,
       pageCountRange: range.pageCount,
-      deathCountRange: range.deathCount
+      deathCountRange: range.deathCount,
+      selectedCharacters: []
     }
   }
 
@@ -33,6 +34,18 @@ class App extends React.Component {
 
   handleDeathCountRangeChange = (newRange) => {
     this.setState({ deathCountRange: newRange });
+  }
+
+  updateSelectedCharacters = (character) => {
+    const currList = [...this.state.selectedCharacters];
+    const index = currList.indexOf(character);
+
+    if (index > -1) {
+      currList.splice(index, 1);
+    } else {
+      currList.push(character);
+    }
+    this.setState({ selectedCharacters: currList });
   }
 
   handleScroll = () => {
@@ -81,11 +94,13 @@ class App extends React.Component {
           filters: {
             publishDateRange: this.state.publishDateRange,
             pageCountRange: this.state.pageCountRange,
-            deathCountRange: this.state.deathCountRange
+            deathCountRange: this.state.deathCountRange,
+            selectedCharacters: this.state.selectedCharacters
           },
           handlePDRangeChange: this.handlePDRangeChange,
           handlePageCountRangeChange: this.handlePageCountRangeChange,
-          handleDeathCountRangeChange: this.handleDeathCountRangeChange
+          handleDeathCountRangeChange: this.handleDeathCountRangeChange,
+          updateSelectedCharacters: this.updateSelectedCharacters
         }}>
           <div className={c.container}>
             <header className={c.header}>
