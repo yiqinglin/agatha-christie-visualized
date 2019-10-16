@@ -1,12 +1,15 @@
 import React from 'react';
-// import cx from 'classnames';
 import injectSheet from 'react-jss';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import { difference } from 'lodash';
+import { characters, detectives, murderMethods } from '../data';
 import { FilterValueContext } from '../filter-value-context';
 import { FilterRangeContext } from '../filter-range-context';
 import Character from './Character';
+import Detective from './Detective';
+import MurderMethod from "./MurderMethod";
 
 function Filters({classes: c}: props) {
   return (
@@ -48,24 +51,41 @@ function Filters({classes: c}: props) {
               
               <h3>Filter By</h3>
               <h4>Characters</h4>
-              <div className="characters">
+              <div className="detectives">
                 <Grid container justify="center" alignItems="center">
-                  <Character imageSrc="https://api.adorable.io/avatars/100/poirot@adorable.io.png" imageAlt="poirot" title="Hercule Poirot" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/missmarple@adorable.io.png" imageAlt="missmarple" title="Miss Marple" />
+                  {detectives.map((detective, i) => (
+                    <Detective key={i} imageSrc={detective.avatar} imageAlt={detective.name} title={detective.name} />
+                  ))}  
                 </Grid>
                 <Divider/>
+              </div>
+              <div className="characters">
                 <Grid container justify="center" alignItems="center">
-                  <Character imageSrc="https://api.adorable.io/avatars/100/chastings@adorable.io.png" imageAlt="chastings" title="Captain Hastings" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/japp@adorable.io.png" imageAlt="japp" title="Inspector Japp" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/ariadne@adorable.io.png" imageAlt="ariadne" title="Ariadne Oliver" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/battle@adorable.io.png" imageAlt="battle" title="Superintendent Battle" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/race@adorable.io.png" imageAlt="race" title="Colonel Race" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/bantrys@adorable.io.png" imageAlt="bantrys" title="Colonel/Dolly Bantrys" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/sirhenryclithering@adorable.io.png" imageAlt="sirhenryclithering" title="Sir Henry Clithering" />
-                  <Character imageSrc="https://api.adorable.io/avatars/100/missbundle@adorable.io.png" imageAlt="missbundle" title="Lady Bundle Brent" />
+                  {characters.map((character, i) => (
+                    <Character key={i} imageSrc={character.avatar} imageAlt={character.name} title={character.name} />
+                  ))}                  
                 </Grid>
               </div>
               <h4>Murder Methods</h4>
+                <Grid container justify="center" alignItems="center">
+                    {value.filters.selectedMurderMethods.length > 0 && value.filters.selectedMurderMethods.map((method, i) => (
+                      <MurderMethod
+                        key={i}
+                        displayOnly
+                        method={method}
+                        handleDelete={() => value.updateMurderMethods(method.method, 'REMOVE')} />
+                    ))}
+                </Grid>
+                <Grid container justify="center" alignItems="center">
+                  {difference(murderMethods, value.filters.selectedMurderMethods).map((method, i) => (
+                    <MurderMethod
+                      method={method.method}
+                      icon={method.icon}
+                      key={i}
+                      handleSelect={() => value.updateMurderMethods(method.method, 'ADD')}
+                    />
+                  ))}
+                </Grid>
             </div>
           )}
         </FilterValueContext.Consumer>
@@ -76,7 +96,8 @@ function Filters({classes: c}: props) {
 
 const styles = {
   container: {
-    width: '160px'
+    width: '200px',
+    height: '100vh'
   }
 };
 

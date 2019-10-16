@@ -25,10 +25,11 @@ const styles = {
     justifyContent: 'center',
     transition: 'width 0.25s ease-in-out',
     overflow: 'hidden',
-    zIndex: '5'
+    zIndex: '5',
+    overflowY: 'scroll'
   },
   show: {
-    width: '200px'
+    width: '250px'
   },
   right: {
     left: '0',

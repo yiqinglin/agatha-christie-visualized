@@ -1,9 +1,10 @@
 import React, { createRef } from 'react';
+import injectSheet from 'react-jss';
+import { difference } from 'lodash';
 import SideBar from './components/SideBar';
 import BookStack from './components/BookStack';
 import Filters from './components/Filters';
-import data from './data';
-import injectSheet from 'react-jss';
+import { data } from './data';
 import { FilterValueContext } from './filter-value-context';
 import { FilterRangeContext } from './filter-range-context';
 import { calcMinMax } from './utils/calcMinMax';
@@ -20,6 +21,8 @@ class App extends React.Component {
       publishDateRange: range.publishDate,
       pageCountRange: range.pageCount,
       deathCountRange: range.deathCount,
+      selectedMurderMethods: [],
+      selectedDetective: "",
       selectedCharacters: []
     }
   }
@@ -46,6 +49,37 @@ class App extends React.Component {
       currList.push(character);
     }
     this.setState({ selectedCharacters: currList });
+  }
+
+  updateSelectedDetective = (detective) => {
+    let newDetective = "";
+    
+    if (this.state.selectedDetective === detective) {
+      newDetective = "";
+    } else {
+      newDetective = detective;
+    }
+    this.setState({ selectedDetective: newDetective })
+  }
+
+  updateMurderMethods = (newMethod, operation) => {
+    const currList = [...this.state.selectedMurderMethods];
+    const index = currList.indexOf(newMethod);
+
+    switch (operation) {
+      case 'REMOVE':
+        currList.splice(index, 1);
+        break;
+      case 'ADD':
+        if (index < 0) {
+          currList.push(newMethod);
+        }
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ selectedMurderMethods: currList });
   }
 
   handleScroll = () => {
@@ -78,29 +112,32 @@ class App extends React.Component {
     const [ PDMin, PDMax ] = this.state.publishDateRange;
     const [ PCMin, PCMax ] = this.state.pageCountRange;
     const [ DCMin, DCMax ] = this.state.deathCountRange;
+    const { selectedDetective, selectedMurderMethods, selectedCharacters } = this.state;
+
     return data.filter((book) => {
       return book.publishDate >= PDMin && book.publishDate <= PDMax
         && book.pageCount >= PCMin && book.pageCount <= PCMax
-        && book.deathCount >= DCMin && book.deathCount <= DCMax;
+        && book.deathCount >= DCMin && book.deathCount <= DCMax
+        && difference(selectedCharacters, book.characters).length === 0
+        && (selectedDetective === "" || book.detective === selectedDetective)
+        && difference(selectedMurderMethods, book.murderMethods).length === 0
     });
   }
 
   render() {
     const { classes: c } = this.props;
+    const {  viewportHeight, showSideBar, ...filterStates } = this.state;
 
     return (
       <FilterRangeContext.Provider value={range}>
         <FilterValueContext.Provider value={{
-          filters: {
-            publishDateRange: this.state.publishDateRange,
-            pageCountRange: this.state.pageCountRange,
-            deathCountRange: this.state.deathCountRange,
-            selectedCharacters: this.state.selectedCharacters
-          },
+          filters: {...filterStates},
           handlePDRangeChange: this.handlePDRangeChange,
           handlePageCountRangeChange: this.handlePageCountRangeChange,
           handleDeathCountRangeChange: this.handleDeathCountRangeChange,
-          updateSelectedCharacters: this.updateSelectedCharacters
+          updateSelectedDetective: this.updateSelectedDetective,
+          updateSelectedCharacters: this.updateSelectedCharacters,
+          updateMurderMethods: this.updateMurderMethods
         }}>
           <div className={c.container}>
             <header className={c.header}>
@@ -108,8 +145,8 @@ class App extends React.Component {
               <p className={c.projectDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </header>
             <div className={c.appBody}>
-              <SideBar show={this.state.showSideBar}/>
-              <SideBar right show={this.state.showSideBar}>
+              <SideBar show={showSideBar}/>
+              <SideBar right show={showSideBar}>
                 <Filters/>
               </SideBar>
               <div className={c.stackContainer} ref={this.ref}>

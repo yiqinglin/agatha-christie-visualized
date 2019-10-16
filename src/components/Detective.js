@@ -2,7 +2,7 @@ import React from 'react';
 import { FilterValueContext } from '../filter-value-context';
 import AvatarWrapper from './AvatarWrapper';
 
-const Character = ({ title, imageSrc, imageAlt, classes : c }: props) => {
+const Detective = ({ title, imageSrc, imageAlt, classes : c }: props) => {
   return (
     <FilterValueContext.Consumer>
       {value => (
@@ -10,12 +10,12 @@ const Character = ({ title, imageSrc, imageAlt, classes : c }: props) => {
           title={title}
           imageSrc={imageSrc}
           imageAlt={imageAlt}
-          selected={value.filters.selectedCharacters.includes(title)}
-          onClick={() => value.updateSelectedCharacters(title)}
+          selected={value.filters.selectedDetective === title}
+          onClick={() => value.updateSelectedDetective(title)}
         />
       )}
     </FilterValueContext.Consumer>
   );
 }
 
-export default Character;
+export default Detective;
