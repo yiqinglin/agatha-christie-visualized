@@ -23,8 +23,8 @@ const Book = ({ title, bookColor, order, classes : c }: props) => {
 
 const styles = {
   book: {
-    width: '400px',
-    height: '100px',
+    width: '360px',
+    height: '70px',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -32,11 +32,12 @@ const styles = {
     cursor: 'pointer',
     transition: 'transform 0.25s ease-in-out',
     position: 'absolute',
+    zIndex: '2',
     left: '0',
     right: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
-    top: props => `${props.order*100}px`,
+    top: props => `${props.order*70}px`,
     '&:hover': {
       transform: 'translateX(50px)'
     }
@@ -69,7 +70,7 @@ const styles = {
     backgroundColor: 'hsl(17, 18%, 58%)'
   },
   frontCover: {
-    boxShadow: '0px 10px 0px 0px rgba(0, 0, 0, 0.11)',
+    boxShadow: '0px 6px 0px 0px rgba(0, 0, 0, 0.11)',
     zIndex: '2'
   },
   bookblock: {

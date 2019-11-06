@@ -688,21 +688,21 @@ const detectives = [
 ]
 
 const murderMethods = [
-  {icon: "face", method: "Poison"}, 
-  {icon: "star", method: "Stabbing"}, 
-  {icon: "face", method: "Electrocution"}, 
-  {icon: "face", method: "Throat Cut"}, 
-  {icon: "face", method: "Hit and Run"}, 
-  {icon: "face", method: "Gun Shot"}, 
-  {icon: "face", method: "Blow to the Head"}, 
-  {icon: "face", method: "Strangling"}, 
-  {icon: "face", method: "Drowning"}, 
-  {icon: "face", method: "Falling/Being Pushed"}, 
-  {icon: "face", method: "Heart Attack"}, 
-  {icon: "face", method: "Body Burnt"}, 
-  {icon: "face", method: "Crushed"}, 
-  {icon: "face", method: "Septicemia"}, 
-  {icon: "face", method: "Suffocation"}
+  {icon: "poison", method: "Poison"}, 
+  {icon: "stabbing", method: "Stabbing"}, 
+  {icon: "electro", method: "Electrocution"}, 
+  {icon: "throat_cut", method: "Throat Cut"}, 
+  {icon: "hit", method: "Hit and Run"}, 
+  {icon: "gun", method: "Gun Shot"}, 
+  {icon: "blow", method: "Blow to the Head"}, 
+  {icon: "strangling", method: "Strangling"}, 
+  {icon: "drown", method: "Drowning"}, 
+  {icon: "fall", method: "Falling/Being Pushed"}, 
+  {icon: "heart", method: "Heart Attack"}, 
+  {icon: "brunt", method: "Body Burnt"}, 
+  {icon: "crushed", method: "Crushed"}, 
+  {icon: "septicemia", method: "Septicemia"}, 
+  {icon: "suffocate", method: "Suffocation"}
 ]
 
 export {

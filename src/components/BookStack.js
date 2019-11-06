@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { calcColorFromTitle } from '../utils/calcColorFromTitle';
 
 const BookStack = ({ data, classes: c }: props) => (
-  <div className={c.bookstack} style={{ height: `${data.length*100}px`}}>
+  <div className={c.bookstack} style={{ height: `${data.length*70}px`}}>
     {data.map((book, i) => 
       <Book
         key={i}

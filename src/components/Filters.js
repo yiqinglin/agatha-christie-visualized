@@ -3,7 +3,6 @@ import injectSheet from 'react-jss';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import { difference } from 'lodash';
 import { characters, detectives, murderMethods } from '../data';
 import { FilterValueContext } from '../filter-value-context';
 import { FilterRangeContext } from '../filter-range-context';
@@ -72,17 +71,18 @@ function Filters({classes: c}: props) {
                       <MurderMethod
                         key={i}
                         displayOnly
-                        method={method}
-                        handleDelete={() => value.updateMurderMethods(method.method, 'REMOVE')} />
+                        method={method.method}
+                        icon={method.icon}
+                        handleDelete={() => value.updateMurderMethods(method, 'REMOVE')} />
                     ))}
                 </Grid>
                 <Grid container justify="center" alignItems="center">
-                  {difference(murderMethods, value.filters.selectedMurderMethods).map((method, i) => (
+                  {murderMethods.map((method, i) => (
                     <MurderMethod
                       method={method.method}
                       icon={method.icon}
                       key={i}
-                      handleSelect={() => value.updateMurderMethods(method.method, 'ADD')}
+                      handleSelect={() => value.updateMurderMethods(method, 'ADD')}
                     />
                   ))}
                 </Grid>
