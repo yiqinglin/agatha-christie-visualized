@@ -9,7 +9,8 @@ const Book = ({ title, bookColor, order, classes : c }: props) => {
   return (
     <div
       className={c.book}
-      style={{ left: `${randomOffset}px` }}> 
+      style={{ left: `${randomOffset}px` }}
+    > 
       <div className={c.spine} style={{backgroundColor: bookColor}}>{title}</div>
       <div className={c.backbone} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
       <div className={c.pages}>
@@ -33,7 +34,6 @@ const styles = {
     transition: 'transform 0.25s ease-in-out',
     position: 'absolute',
     zIndex: '2',
-    left: '0',
     right: '0',
     marginLeft: 'auto',
     marginRight: 'auto',

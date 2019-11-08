@@ -13,7 +13,9 @@ const theme = {
   colorPrimary: '#724144',
   colorBackground: '#1C1C1C',
   colorWhite: '#FFFFFF',
-  colorText: '#EFF1E4'
+  colorGrey: '#494949',
+  colorText: '#EFF1E4',
+  colorHighlight: '#887856'
 };
 
 class App extends React.Component {
