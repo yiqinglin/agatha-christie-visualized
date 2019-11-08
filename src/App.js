@@ -11,6 +11,7 @@ const range = calcMinMax(data, ['publishDate', 'pageCount', 'deathCount']);
 
 const theme = {
   colorPrimary: '#724144',
+  colorPrimaryDark: '#8C6A6A',
   colorBackground: '#1C1C1C',
   colorWhite: '#FFFFFF',
   colorGrey: '#494949',

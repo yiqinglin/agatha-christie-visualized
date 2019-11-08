@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from './SideBar';
 import BookStack from './BookStack';
-import Filters from './Filters';
 
 function Main({ filteredData, classes: c }: props) {
   const stackRef = useRef(null);
@@ -43,7 +42,7 @@ function Main({ filteredData, classes: c }: props) {
     <div className={c.container}>
       <header className={c.header}>
         <a className={c.aboutLink} href="/">about the project</a>
-        <IconButton aria-label='menu' className={c.menuBtn} colorPrimary onClick={() => setShowSideBar(true)}>
+        <IconButton aria-label='menu' className={c.menuBtn} onClick={() => setShowSideBar(true)}>
           <MenuIcon fontSize='small'/>
         </IconButton>
       </header>
@@ -52,9 +51,7 @@ function Main({ filteredData, classes: c }: props) {
         <p className={c.projectDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
       <div className={c.appBody}>
-        <SideBar show={showSideBar}>
-          <Filters/>
-        </SideBar>
+        <SideBar show={showSideBar}/>
         <div className={c.stackContainer} ref={stackRef}>
           <BookStack data={filteredData} />
         </div>

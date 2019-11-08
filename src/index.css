@@ -6,6 +6,10 @@ body {
   background-color: "#1C1C1C";
 }
 
+div {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

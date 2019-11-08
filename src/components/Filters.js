@@ -1,11 +1,12 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import { characters, detectives, murderMethods } from '../data';
 import { FilterValueContext } from '../filter-value-context';
 import { FilterRangeContext } from '../filter-range-context';
+import CustomSlider from './CustomSlider';
+import CustomDivider from './CustomDivider';
 import Character from './Character';
 import Detective from './Detective';
 import MurderMethod from "./MurderMethod";
@@ -17,8 +18,13 @@ function Filters({classes: c}: props) {
         <FilterValueContext.Consumer>
           {value => (
             <div className={c.container}>
-              <h3>Publish Year</h3>
-                <Slider
+              <div className={c.header}>
+                <h3 className={c.headerTitle}>Filter</h3>
+                <p className={c.headerDesc}>Use the filters below to find books fit your criteria</p>
+                <CustomDivider />
+              </div>
+              <p className={c.sectionTitle}>Publish Year</p>
+                <CustomSlider
                   min={range.publishDate[0]}
                   max={range.publishDate[1]}
                   value={value.filters.publishDateRange}
@@ -27,8 +33,8 @@ function Filters({classes: c}: props) {
                   aria-labelledby="range-slider"
                   getAriaValueText={() => `${value.filters.publishDateRange}}`}
                 />
-              <h3>Page Count</h3>
-              <Slider
+              <p className={c.sectionTitle}>Page Count</p>
+              <CustomSlider
                   min={range.pageCount[0]}
                   max={range.pageCount[1]}
                   value={value.filters.pageCountRange}
@@ -37,8 +43,8 @@ function Filters({classes: c}: props) {
                   aria-labelledby="range-slider"
                   getAriaValueText={() => `${value.filters.pageCountRange}}`}
                 />
-              <h3>Death Count</h3>
-              <Slider
+              <p className={c.sectionTitle}>Death Count</p>
+              <CustomSlider
                   min={range.deathCount[0]}
                   max={range.deathCount[1]}
                   value={value.filters.deathCountRange}
@@ -47,26 +53,24 @@ function Filters({classes: c}: props) {
                   aria-labelledby="range-slider"
                   getAriaValueText={() => `${value.filters.deathCountRange}}`}
                 />
-              
-              <h3>Filter By</h3>
-              <h4>Characters</h4>
+              <p className={c.sectionTitle}>By Detectives</p>
               <div className="detectives">
-                <Grid container justify="center" alignItems="center">
+                <Grid container justify="flex-start" alignItems="center">
                   {detectives.map((detective, i) => (
                     <Detective key={i} imageSrc={detective.avatar} imageAlt={detective.name} title={detective.name} />
                   ))}  
                 </Grid>
-                <Divider/>
               </div>
+              <p className={c.sectionTitle}>By Characters</p>
               <div className="characters">
-                <Grid container justify="center" alignItems="center">
+                <Grid container justify="flex-start" alignItems="center">
                   {characters.map((character, i) => (
                     <Character key={i} imageSrc={character.avatar} imageAlt={character.name} title={character.name} />
                   ))}                  
                 </Grid>
               </div>
-              <h4>Murder Methods</h4>
-                <Grid container justify="center" alignItems="center">
+              <p className={c.sectionTitle}>By Murder Methods</p>
+                <Grid container justify="flex-start" alignItems="center">
                     {value.filters.selectedMurderMethods.length > 0 && value.filters.selectedMurderMethods.map((method, i) => (
                       <MurderMethod
                         key={i}
@@ -94,11 +98,28 @@ function Filters({classes: c}: props) {
   );
 }
 
-const styles = {
+const styles = theme => ({
   container: {
-    width: '200px',
-    height: '100vh'
+    width: '100%',
+    height: '100vh',
+    textAlign: 'left'
+  },
+  headerTitle: {
+    textTransform: 'capitalize',
+    fontSize: '1em',
+    fontWeight: '700'
+  },
+  headerDesc: {
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    fontSize: '0.8em'
+  },
+  sectionTitle: {
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    fontSize: '0.8em',
+    marginTop: '20px'
   }
-};
+});
 
 export default injectSheet(styles)(Filters);

@@ -1,11 +1,12 @@
 import React from 'react';
 import cx from 'classnames';
 import injectSheet from 'react-jss';
+import Filters from './Filters';
 
-function SideBar({ show, classes: c, children }: props) {
+function SideBar({ show, classes: c }: props) {
   return (
     <div className={cx(c.sidebar, show && c.show)}>
-      {children}
+      <Filters />
     </div>
   );
 }
@@ -30,7 +31,8 @@ const styles = theme => ({
     overflowY: 'scroll'
   },
   show: {
-    width: '250px'
+    width: '300px',
+    padding: '20px'
   },
   right: {
     left: '0',
