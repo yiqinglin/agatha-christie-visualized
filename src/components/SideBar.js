@@ -15,24 +15,24 @@ const styles = theme => ({
   sidebar: {
     position: 'fixed',
     height: '100vh',
-    width: '0',
+    width: '300px',
     backgroundColor: theme.colorPrimary,
     color: theme.colorText,
     top: '0',
     bottom: '0',
-    right: '0',
+    right: '-300px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'width 0.25s ease-in-out',
+    transition: 'transform 0.25s ease-in-out',
     overflow: 'hidden',
     zIndex: '5',
+    padding: '20px',
     overflowY: 'scroll'
   },
   show: {
-    width: '300px',
-    padding: '20px'
+    transform: 'translateX(-300px)',
   },
   right: {
     left: '0',

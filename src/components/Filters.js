@@ -1,7 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
 import Grid from '@material-ui/core/Grid';
-// import Divider from '@material-ui/core/Divider';
 import { characters, detectives, murderMethods } from '../data';
 import { FilterValueContext } from '../filter-value-context';
 import { FilterRangeContext } from '../filter-range-context';

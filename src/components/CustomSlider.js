@@ -1,21 +1,30 @@
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { withTheme } from 'react-jss';
+import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/slider';
 
-const styles = {
-  root: {
-    color: '#EFF1E4',
-    marginBottom: '12px'
-  },
-  thumb: {
-    width: '15px',
-    height: '15px'
-  },
-  valueLabel: {
-    top: 22,
-    '& *': {
-      background: 'transparent'
+const StyledSlider = ({ theme, ...rest}: props) => {
+  const useStyles = makeStyles({
+    root: {
+      color: theme.colorText,
+      marginBottom: '12px',
+      '& .MuiSlider-thumb': {
+        width: '15px',
+        height: '15px'
+      },
+      '& .MuiSlider-valueLabel': {
+        top: 22,
+        '& *': {
+          background: 'transparent'
+        }
+      }
     },
-  }
-};
+  });
+  const classes = useStyles();
 
-export default withStyles(styles)(Slider);
+  return (
+    <Slider {...rest} className={classes.root}/>
+  )
+}
+
+export default withTheme(({ theme, ...rest }) => <StyledSlider theme={theme} {...rest} />);

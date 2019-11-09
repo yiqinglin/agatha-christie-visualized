@@ -71,7 +71,6 @@ class App extends React.Component {
   }
 
   updateMurderMethods = (newMethod, operation) => {
-    console.log(newMethod, operation);
     const currList = [...this.state.selectedMurderMethods];
     const index = currList.indexOf(newMethod);
 

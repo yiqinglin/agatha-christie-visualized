@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Controller, Scene } from 'react-scrollmagic';
 import { Tween, Timeline } from 'react-gsap';
 import injectSheet from 'react-jss';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from './SideBar';
 import BookStack from './BookStack';
+import FilterBtn from './FilterBtn';
 
 function Main({ filteredData, classes: c }: props) {
   const stackRef = useRef(null);
@@ -42,9 +41,7 @@ function Main({ filteredData, classes: c }: props) {
     <div className={c.container}>
       <header className={c.header}>
         <a className={c.aboutLink} href="/">about the project</a>
-        <IconButton aria-label='menu' className={c.menuBtn} onClick={() => setShowSideBar(true)}>
-          <MenuIcon fontSize='small'/>
-        </IconButton>
+        <FilterBtn onClick={() => setShowSideBar(true)} />
       </header>
       <div className={c.intro}>
         <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
@@ -54,6 +51,7 @@ function Main({ filteredData, classes: c }: props) {
         <SideBar show={showSideBar}/>
         <div className={c.stackContainer} ref={stackRef}>
           <BookStack data={filteredData} />
+          <p className={c.bookCount}>There are <strong className={c.strong}>{filteredData.length}</strong> books in this stack</p>
         </div>
       </div>
       <Controller>
@@ -74,8 +72,15 @@ function Main({ filteredData, classes: c }: props) {
           )}
         </Scene>
       </Controller>
+      <footer className={c.footer}>
+        <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
+        <div className={c.socialLinks}>
+          <a href="https://www.linkedin.com/in/yiqinglin/" className={c.social}>Linkedin</a>
+          <a href="https://github.com/yiqinglin/agatha-christie-visualized" className={c.social}>Github</a>
+          <a href="https://www.instagram.com/yiqinglin/" className={c.social}>Instagram</a>
+        </div>
+      </footer>
       <div className={c.cheveronPattern}/>
-      <footer className={c.footer}>Just another line of text.</footer>
     </div>
   );
 }
@@ -128,23 +133,20 @@ const styles = theme => ({
       color: theme.colorPrimary
     }
   },
-  menuBtn: {
-    backgroundColor: `${theme.colorPrimary} !important`,
-    color: `${theme.colorText} !important`
-  },
   intro: {
     minHeight: '50vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.colorText
+    justifyContent: 'center'
   },
   projectTitle: {
-    fontSize: 'calc(10px + 2vmin)'
+    fontSize: 'calc(10px + 2vmin)',
+    color: theme.colorText
   },
   projectDesc: {
     maxWidth: '500px',
+    color: theme.colorText,
     '&:after': {
       backgroundColor: theme.colorGrey,
       boxSizing: 'border-box',
@@ -161,15 +163,50 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    minWidth: '1024px',
-    paddingBottom: '200px'
+    minWidth: '1024px'
   },
   stackContainer: {
-    width: '100%'
+    width: '100%',
+    zIndex: '2'
+  },
+  bookCount: {
+    fontFamily: 'roboto',
+    fontSize: '0.8em',
+    marginTop: '30px',
+    '&:after': {
+      backgroundColor: theme.colorGrey,
+      boxSizing: 'border-box',
+      content: '""',
+      display: 'block',
+      height: '200px',
+      margin: '30px auto',
+      width: '1px'
+    }
+  },
+  strong: {
+    fontSize: '1em'
   },
   footer: {
     paddingTop: '20px',
-    paddingBottom: '20px'
+    paddingBottom: '80px',
+    zIndex: '2',
+    position: 'relative',
+    margin: 'auto',
+    width: '390px',
+  },
+  socialLinks: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  social: {
+    textDecoration: 'none',
+    color: theme.colorText,
+    transform: 'all .25s ease-in-out',
+    '&:hover': {
+      color: theme.colorWhite
+    }
   }
 });
 

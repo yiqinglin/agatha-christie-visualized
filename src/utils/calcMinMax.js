@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  *  Given an array of objects and an array of keys, returns the min/max value
  *  calculated from of all the property values in the objects for each key.
