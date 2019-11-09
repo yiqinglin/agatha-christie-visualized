@@ -6,12 +6,11 @@ import ToolTip from '@material-ui/core/ToolTip';
 import { startCase } from 'lodash';
 
 const MurderMethod = ({ method, displayOnly, handleDelete, handleSelect, icon, classes: c}: props) => {
-  // const avatarSrc = `/assets/icons/${icon}.jpg`;
   return (
     <ToolTip title={method} disableHoverListener={displayOnly}>
       <Chip
         className={c.container}
-        label={displayOnly ? startCase(method) : ""}
+        label={startCase(method)}
         avatar={<Avatar>{method[0]}</Avatar>}
         onDelete={displayOnly ? handleDelete : null}
         onClick={handleSelect}
@@ -22,7 +21,10 @@ const MurderMethod = ({ method, displayOnly, handleDelete, handleSelect, icon, c
 
 const styles = {
   container: {
-    margin: '5px'
+    margin: '5px',
+    '& .MuiChip-label': {
+      display: props => props.displayOnly ? 'flex' : 'none'
+    }
   }
 };
 

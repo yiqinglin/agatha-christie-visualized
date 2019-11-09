@@ -79,7 +79,7 @@ function Filters({classes: c}: props) {
                         handleDelete={() => value.updateMurderMethods(method, 'REMOVE')} />
                     ))}
                 </Grid>
-                <Grid container justify="center" alignItems="center">
+                <Grid container justify="flex-start" alignItems="center">
                   {murderMethods.map((method, i) => (
                     <MurderMethod
                       method={method.method}
