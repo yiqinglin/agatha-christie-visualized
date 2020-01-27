@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import tinycolor from 'tinycolor2';
 import cx from 'classnames';
 import injectSheet from 'react-jss';
 
-const Book = ({ title, bookColor, order, classes : c }: props) => {
-  const [ randomOffset ] = useState(Math.floor(Math.random() * 100));
+class Book extends React.Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+      randomOffset: Math.floor(Math.random() * 100)
+    }
+  }
 
-  return (
-    <div
-      className={c.book}
-      style={{ left: `${randomOffset}px` }}
-    > 
-      <div className={c.spine} style={{backgroundColor: bookColor}}>{title}</div>
-      <div className={c.backbone} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
-      <div className={c.pages}>
-        <div className={cx(c.cover, c.frontCover)} style={{backgroundColor: tinycolor(bookColor).lighten(10)}}/>
-        <div className={c.bookblock}/>
-        <div className={c.cover} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+  render() {
+    const { title, bookColor, classes : c } = this.props;
+    const { randomOffset } = this.state;
+
+    return (
+      <div
+        className={c.book}
+        style={{ marginLeft: `${randomOffset}px` }}
+      > 
+        <div className={c.spine} style={{backgroundColor: bookColor}}>{title}</div>
+        <div className={c.backbone} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+        <div className={c.pages}>
+          <div className={cx(c.cover, c.frontCover)} style={{backgroundColor: tinycolor(bookColor).lighten(10)}}/>
+          <div className={c.bookblock}/>
+          <div className={c.cover} style={{backgroundColor: tinycolor(bookColor).lighten(10)}} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const styles = {
@@ -31,16 +41,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     cursor: 'pointer',
-    transition: 'transform 0.25s ease-in-out',
-    position: 'absolute',
-    zIndex: '2',
-    right: '0',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    top: props => `${props.order*70}px`,
-    '&:hover': {
-      transform: 'translateX(50px)'
-    }
+    zIndex: '2'
   },
   spine: {
     width: '60%',

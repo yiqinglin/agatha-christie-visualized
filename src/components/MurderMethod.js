@@ -19,13 +19,17 @@ const MurderMethod = ({ method, displayOnly, handleDelete, handleSelect, icon, c
   );
 }
 
-const styles = {
+const styles = (theme) => ({
   container: {
     margin: '5px',
     '& .MuiChip-label': {
       display: props => props.displayOnly ? 'flex' : 'none'
+    },
+    '& .MuiAvatar-root ': {
+      backgroundColor: theme.colorText,
+      color: theme.colorPrimary
     }
   }
-};
+});
 
 export default injectSheet(styles)(MurderMethod);

@@ -1,5 +1,4 @@
 import { calcMinMax } from './calcMinMax';
-// Test calcColorFromTitle function
 
 const testData = [
   {

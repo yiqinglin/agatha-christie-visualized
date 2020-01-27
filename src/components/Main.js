@@ -4,7 +4,6 @@ import { Tween, Timeline } from 'react-gsap';
 import injectSheet from 'react-jss';
 import SideBar from './SideBar';
 import BookStack from './BookStack';
-import FilterBtn from './FilterBtn';
 
 function Main({ filteredData, classes: c }: props) {
   const stackRef = useRef(null);
@@ -41,7 +40,6 @@ function Main({ filteredData, classes: c }: props) {
     <div className={c.container}>
       <header className={c.header}>
         <a className={c.aboutLink} href="/">about the project</a>
-        <FilterBtn onClick={() => setShowSideBar(true)} />
       </header>
       <div className={c.intro}>
         <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
@@ -75,9 +73,9 @@ function Main({ filteredData, classes: c }: props) {
       <footer className={c.footer}>
         <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
         <div className={c.socialLinks}>
-          <a href="https://www.linkedin.com/in/yiqinglin/" className={c.social}>Linkedin</a>
-          <a href="https://github.com/yiqinglin/agatha-christie-visualized" className={c.social}>Github</a>
-          <a href="https://www.instagram.com/yiqinglin/" className={c.social}>Instagram</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/yiqinglin/" className={c.social}>Linkedin</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/yiqinglin/agatha-christie-visualized" className={c.social}>Github</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/yiqinglin/" className={c.social}>Instagram</a>
         </div>
       </footer>
       <div className={c.cheveronPattern}/>
