@@ -43,7 +43,19 @@ function Main({ filteredData, classes: c }: props) {
       </header>
       <div className={c.intro}>
         <h3 className={c.projectTitle}>Agatha Christie Visualized</h3>
-        <p className={c.projectDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div className={c.projectDesc}>
+          <p>
+          Agatha Christie is the world's best known mystery novelist. With her sixty-six detective novels
+          and fourteen short story collections, her mystery puzzles has become the source of great delight
+          to generations of readers. </p>
+          <p> Here we present all her detective novels with filters such as publish date and page
+          count, and also more interestingly recurring characters (including but not limited to the
+          beloved detectives) and murder methods. Whether of not you are a fan of Christie's, we
+          hope this visualization tool provides you new perspectives to see the body of the work
+          of the Queen of Mystery. Or better yet, you will be able to find your next great read of
+          Chrsitie's here.</p>
+          <p><b>Note: </b>this is a work in progress.</p>
+        </div>
       </div>
       <div className={c.appBody}>
         <SideBar show={showSideBar}/>

@@ -5,7 +5,7 @@ import FlipMove from 'react-flip-move';
 import { calcColorFromTitle } from '../utils/calcColorFromTitle'; 
 
 const BookStack = ({ data, classes: c }: props) => (
-  <div className={c.bookstack} style={{ height: `${data.length*70}px`}}>
+  <div className={c.bookstack}>
     <FlipMove
       staggerDurationBy="30"
       duration={300}
