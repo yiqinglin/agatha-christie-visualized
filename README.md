@@ -2,7 +2,7 @@
 
 This project presents Agatha Christie's all sixty-six detective novels with filters such as publish date and page count and also more interestingly recurring characters (including but not limited to the beloved detectives) and murder methods.
 
-THis is a work in progress.
+This is a work in progress.
 
 <img src="/public/screenshot-1.png" width="400" alt="Screenshot 1" />
 <img src="/public/screenshot-2.png" width="400" alt="Screenshot 2" />
